@@ -6,4 +6,5 @@
 
     <string name="profile_description">I like books, twix, Android, pokemon, and presidents</string>
     <string name="title_activity_add_comment">AddCommentActivity</string>
+    <string name="title_activity_camer">CamerActivity</string>
 </resources>

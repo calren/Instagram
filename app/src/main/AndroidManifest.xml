@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:allowBackup="true"
@@ -20,9 +21,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:theme="@android:style/Theme.Dialog"
             android:name=".feed.AddCommentActivity"
-            android:label="@string/title_activity_add_comment" >
+            android:label="@string/title_activity_add_comment"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:label="@string/title_activity_camer" >
         </activity>
     </application>
 
