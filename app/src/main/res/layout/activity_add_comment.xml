@@ -25,7 +25,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/send"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:id="@+id/send_comment_btn"/>
 
         <View
             android:layout_width="1dp"
@@ -37,7 +38,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:src="@drawable/cancel"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:id="@+id/cancel_comment_btn"/>
     </LinearLayout>
 
 </RelativeLayout>

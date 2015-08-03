@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import codepath.android.com.instagram.HomeActivity;
 import codepath.android.com.instagram.R;
 
 import com.squareup.picasso.Picasso;
@@ -51,7 +52,7 @@ public class FeedRecyclerViewAdapter
     }
 
     @Override
-    public void onBindViewHolder(FeedRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(FeedRecyclerViewAdapter.ViewHolder holder, final int position) {
         FeedItemModel feedItemModel = feedItems.get(position);
         holder.userName.setText(feedItemModel.getUserName());
         Picasso.with(context).load(feedItemModel.getImageUrl()).into(holder.image);
@@ -60,8 +61,9 @@ public class FeedRecyclerViewAdapter
         holder.addComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), AddCommentActivity.class);
-                view.getContext().startActivity(myIntent);
+                Intent intent = new Intent(view.getContext(), AddCommentActivity.class);
+                intent.putExtra("position", position);
+                ((HomeActivity) view.getContext()).startActivityForResult(intent, 300);
             }
         });
     }

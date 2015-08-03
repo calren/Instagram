@@ -85,4 +85,13 @@ public class HomeActivity extends Activity {
         feedRecyclerViewAdapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        feedItemModels.get(data.getIntExtra("position", -1)).setComment2(
+                data.getStringExtra("new_comment"));
+
+        feedRecyclerViewAdapter.notifyDataSetChanged();
+    }
 }

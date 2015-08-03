@@ -29,4 +29,8 @@ public class FeedItemModel {
     public String getComment2() {
         return comment2;
     }
+
+    public void setComment2(String comment) {
+        comment2 = comment;
+    }
 }
