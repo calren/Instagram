@@ -3,6 +3,7 @@ package codepath.android.com.instagram.feed;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ public class FeedRecyclerViewAdapter
         public ImageView image;
         public TextView comment1;
         public TextView comment2;
+        public View addComment;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -37,6 +39,7 @@ public class FeedRecyclerViewAdapter
             image = (ImageView) itemView.findViewById(R.id.feed_item_image);
             comment1 = (TextView) itemView.findViewById(R.id.feed_item_comment1);
             comment2 = (TextView) itemView.findViewById(R.id.feed_item_comment2);
+            addComment = itemView.findViewById(R.id.add_comment);
         }
     }
 
@@ -54,6 +57,13 @@ public class FeedRecyclerViewAdapter
         Picasso.with(context).load(feedItemModel.getImageUrl()).into(holder.image);
         holder.comment1.setText(feedItemModel.getComment1());
         holder.comment2.setText(feedItemModel.getComment2());
+        holder.addComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(view.getContext(), AddCommentActivity.class);
+                view.getContext().startActivity(myIntent);
+            }
+        });
     }
 
     @Override

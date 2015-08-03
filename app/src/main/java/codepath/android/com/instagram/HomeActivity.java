@@ -59,6 +59,11 @@ public class HomeActivity extends Activity {
         });
     }
 
+    private void launchCamera() {
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        startActivityForResult(intent, 0);
+    }
+
     private void setUpFeedActivity() {
         feedRecyclerView = (RecyclerView) findViewById(R.id.feed_recycler_view);
         feedRecyclerViewAdapter = new FeedRecyclerViewAdapter(this, feedItemModels);
@@ -72,11 +77,6 @@ public class HomeActivity extends Activity {
             }
         });
         networkController.fetchPopularPhotos(HomeActivity.this);
-    }
-
-    private void launchCamera() {
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        startActivityForResult(intent, 0);
     }
 
     public void updateFeed(ArrayList<FeedItemModel> feedItems) {

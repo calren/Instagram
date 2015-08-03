@@ -15,18 +15,18 @@
         android:id="@+id/feed_item_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="coolcatcaren"
-        android:textStyle="bold"
         android:layout_toRightOf="@id/feed_item_user_picture"
-        android:textSize="20dp"/>
+        android:text="coolcatcaren"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/feed_item_image"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_below="@id/feed_item_user_name"
-        android:src="@drawable/profile_pic"
-        android:padding="5dp"/>
+        android:padding="5dp"
+        android:src="@drawable/profile_pic" />
 
     <TextView
         android:id="@+id/feed_item_like_count"
@@ -50,5 +50,11 @@
         android:layout_below="@id/feed_item_comment1"
         android:text="this is the second comment on this picture" />
 
-
+    <TextView
+        android:id="@+id/add_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/feed_item_comment2"
+        android:text="Add a comment"
+        android:textColor="#707070" />
 </RelativeLayout>
