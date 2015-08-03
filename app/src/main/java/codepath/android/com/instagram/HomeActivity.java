@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,6 +24,8 @@ public class HomeActivity extends Activity {
     NetworkController networkController = new NetworkController();
     FeedRecyclerViewAdapter feedRecyclerViewAdapter;
     List<FeedItemModel> feedItemModels = new ArrayList<>();
+    RecyclerView feedRecyclerView;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,7 @@ public class HomeActivity extends Activity {
         layoutViewFlipper = (ViewFlipper) findViewById(R.id.layout_view_flipper);
         setUpBottomTabBar();
         setUpFeedActivity();
-        showFeedActivity();
+        layoutViewFlipper.setDisplayedChild(FEED_PAGE);
     }
 
     private void setUpBottomTabBar() {
@@ -39,13 +42,13 @@ public class HomeActivity extends Activity {
         findViewById(R.id.home_tab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showFeedActivity();
+                layoutViewFlipper.setDisplayedChild(FEED_PAGE);
             }
         });
         findViewById(R.id.profile_tab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showProfileActivity();
+                layoutViewFlipper.setDisplayedChild(PROFILE_PAGE);
             }
         });
         findViewById(R.id.camera_tab).setOnClickListener(new View.OnClickListener() {
@@ -56,30 +59,30 @@ public class HomeActivity extends Activity {
         });
     }
 
-    private void showProfileActivity() {
-        layoutViewFlipper.setDisplayedChild(PROFILE_PAGE);
-    }
-
-    private void showFeedActivity() {
-        layoutViewFlipper.setDisplayedChild(FEED_PAGE);
-        networkController.fetchPopularPhotos(this);
-    }
-
     private void setUpFeedActivity() {
-        RecyclerView rvUsers = (RecyclerView) findViewById(R.id.feed_recycler_view);
+        feedRecyclerView = (RecyclerView) findViewById(R.id.feed_recycler_view);
         feedRecyclerViewAdapter = new FeedRecyclerViewAdapter(this, feedItemModels);
-        rvUsers.setAdapter(feedRecyclerViewAdapter);
-        rvUsers.setLayoutManager(new LinearLayoutManager(this));
+        feedRecyclerView.setAdapter(feedRecyclerViewAdapter);
+        feedRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        swipeRefreshLayout = ((SwipeRefreshLayout) findViewById(R.id.feed_refresh_container));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                networkController.fetchPopularPhotos(HomeActivity.this);
+            }
+        });
+        networkController.fetchPopularPhotos(HomeActivity.this);
     }
 
     private void launchCamera() {
-        // TODO maybe launch custom camera
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         startActivityForResult(intent, 0);
     }
 
     public void updateFeed(ArrayList<FeedItemModel> feedItems) {
+        feedItemModels.clear();
         feedItemModels.addAll(feedItems);
         feedRecyclerViewAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
     }
 }
