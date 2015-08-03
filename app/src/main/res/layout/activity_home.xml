@@ -4,15 +4,21 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <include
-        layout="@layout/home"
+    <ViewFlipper
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_view_flipper">
 
-    <include
-        layout="@layout/profile"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <include
+            layout="@layout/feed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <include
+            layout="@layout/profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ViewFlipper>
 
     <include
         layout="@layout/bottom_tab_bar"
