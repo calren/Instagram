@@ -12,6 +12,8 @@ import codepath.android.com.instagram.R;
 
 public class AddCommentActivity extends Activity {
 
+    public final static String POSITION_INTENT_KEY = "position";
+    public final static String COMMENT_INTENT_KEY = "new_comment";
     EditText addCommentView;
     int position;
 
@@ -20,7 +22,7 @@ public class AddCommentActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_add_comment);
-        position = getIntent().getIntExtra("position", -1);
+        position = getIntent().getIntExtra(POSITION_INTENT_KEY, -1);
         setLayout();
     }
 
@@ -31,8 +33,8 @@ public class AddCommentActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("new_comment", addCommentView.getText().toString());
-                returnIntent.putExtra("position", position);
+                returnIntent.putExtra(COMMENT_INTENT_KEY, addCommentView.getText().toString());
+                returnIntent.putExtra(POSITION_INTENT_KEY, position);
                 setResult(RESULT_OK, returnIntent);
                 finish();
             }

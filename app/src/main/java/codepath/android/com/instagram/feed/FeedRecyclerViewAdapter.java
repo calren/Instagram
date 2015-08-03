@@ -62,7 +62,7 @@ public class FeedRecyclerViewAdapter
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), AddCommentActivity.class);
-                intent.putExtra("position", position);
+                intent.putExtra(AddCommentActivity.POSITION_INTENT_KEY, position);
                 ((HomeActivity) view.getContext()).startActivityForResult(intent, 300);
             }
         });

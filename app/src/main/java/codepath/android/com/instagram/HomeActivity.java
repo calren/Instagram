@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ViewFlipper;
 
+import codepath.android.com.instagram.feed.AddCommentActivity;
 import codepath.android.com.instagram.feed.FeedItemModel;
 import codepath.android.com.instagram.feed.FeedRecyclerViewAdapter;
 
@@ -79,6 +80,9 @@ public class HomeActivity extends Activity {
         networkController.fetchPopularPhotos(HomeActivity.this);
     }
 
+    /*
+     * called when pull to refresh, reset feed with new api response
+     */
     public void updateFeed(ArrayList<FeedItemModel> feedItems) {
         feedItemModels.clear();
         feedItemModels.addAll(feedItems);
@@ -86,12 +90,15 @@ public class HomeActivity extends Activity {
         swipeRefreshLayout.setRefreshing(false);
     }
 
+    /*
+     * Adds a new comment to a feed model based on result from AddCommentActivity
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        feedItemModels.get(data.getIntExtra("position", -1)).setComment2(
-                data.getStringExtra("new_comment"));
-
-        feedRecyclerViewAdapter.notifyDataSetChanged();
+        if (data != null) {
+            feedItemModels.get(data.getIntExtra(AddCommentActivity.POSITION_INTENT_KEY, -1))
+                    .setComment2(data.getStringExtra(AddCommentActivity.COMMENT_INTENT_KEY));
+            feedRecyclerViewAdapter.notifyDataSetChanged();
+        }
     }
 }
