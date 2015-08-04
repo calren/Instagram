@@ -33,6 +33,8 @@ public class FeedRecyclerViewAdapter
         public TextView comment1;
         public TextView comment2;
         public View addComment;
+        public ImageView profileImage;
+        public TextView likesCount;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -41,6 +43,8 @@ public class FeedRecyclerViewAdapter
             comment1 = (TextView) itemView.findViewById(R.id.feed_item_comment1);
             comment2 = (TextView) itemView.findViewById(R.id.feed_item_comment2);
             addComment = itemView.findViewById(R.id.add_comment);
+            profileImage = (ImageView) itemView.findViewById(R.id.feed_item_user_picture);
+            likesCount = (TextView) itemView.findViewById(R.id.feed_item_like_count);
         }
     }
 
@@ -56,6 +60,8 @@ public class FeedRecyclerViewAdapter
         FeedItemModel feedItemModel = feedItems.get(position);
         holder.userName.setText(feedItemModel.getUserName());
         Picasso.with(context).load(feedItemModel.getImageUrl()).into(holder.image);
+        Picasso.with(context).load(feedItemModel.getProfileImageUrl()).into(holder.profileImage);
+        holder.likesCount.setText(String.valueOf(feedItemModel.getLikesCount()) + " likes");
         holder.comment1.setText(feedItemModel.getComment1());
         holder.comment2.setText(feedItemModel.getComment2());
         holder.addComment.setOnClickListener(new View.OnClickListener() {

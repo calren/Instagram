@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.ViewFlipper;
 import codepath.android.com.instagram.feed.AddCommentActivity;
 import codepath.android.com.instagram.feed.FeedItemModel;
 import codepath.android.com.instagram.feed.FeedRecyclerViewAdapter;
+import codepath.android.com.instagram.profile.UserImagesRecyclerViewAdapter;
 
 public class HomeActivity extends Activity {
 
@@ -24,8 +26,11 @@ public class HomeActivity extends Activity {
     private final static int PROFILE_PAGE = 1;
     NetworkController networkController = new NetworkController();
     FeedRecyclerViewAdapter feedRecyclerViewAdapter;
+    UserImagesRecyclerViewAdapter userImagesRecyclerViewAdapter;
     List<FeedItemModel> feedItemModels = new ArrayList<>();
+    List<String> imageUrls = new ArrayList<>();
     RecyclerView feedRecyclerView;
+    RecyclerView userImagesRecyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -35,6 +40,7 @@ public class HomeActivity extends Activity {
         layoutViewFlipper = (ViewFlipper) findViewById(R.id.layout_view_flipper);
         setUpBottomTabBar();
         setUpFeedActivity();
+        setUpProfileActivity();
         layoutViewFlipper.setDisplayedChild(FEED_PAGE);
     }
 
@@ -77,7 +83,16 @@ public class HomeActivity extends Activity {
                 networkController.fetchPopularPhotos(HomeActivity.this);
             }
         });
-        networkController.fetchPopularPhotos(HomeActivity.this);
+        networkController.fetchPopularPhotos(this);
+    }
+
+    private void setUpProfileActivity() {
+        userImagesRecyclerView = (RecyclerView) findViewById(R.id.user_images_recycler_view);
+        userImagesRecyclerViewAdapter = new UserImagesRecyclerViewAdapter(imageUrls, this);
+        userImagesRecyclerView.setAdapter(userImagesRecyclerViewAdapter);
+        GridLayoutManager manager = new GridLayoutManager(this, 3);
+        userImagesRecyclerView.setLayoutManager(manager);
+        networkController.fetchPhotos(this);
     }
 
     /*
@@ -88,6 +103,12 @@ public class HomeActivity extends Activity {
         feedItemModels.addAll(feedItems);
         feedRecyclerViewAdapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    public void updateUserImages(ArrayList<String> imageUrls) {
+        this.imageUrls.clear();
+        this.imageUrls.addAll(imageUrls);
+        userImagesRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     /*

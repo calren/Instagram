@@ -3,7 +3,7 @@
     android:id="@+id/bottom_tab_bar"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="#A9A9A9"
+    android:background="#424242"
     android:orientation="horizontal">
 
     <ImageView
@@ -15,7 +15,7 @@
         android:layout_weight="1"/>
 
     <View
-        android:layout_width="1dp"
+        android:layout_width="2dp"
         android:layout_height="match_parent"
         android:background="#000000" />
 
@@ -28,7 +28,7 @@
         android:layout_weight="1"/>
 
     <View
-        android:layout_width="1dp"
+        android:layout_width="2dp"
         android:layout_height="match_parent"
         android:background="#000000" />
 
