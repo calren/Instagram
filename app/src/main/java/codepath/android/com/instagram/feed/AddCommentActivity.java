@@ -14,6 +14,8 @@ public class AddCommentActivity extends Activity {
 
     public final static String POSITION_INTENT_KEY = "position";
     public final static String COMMENT_INTENT_KEY = "new_comment";
+    public final static String INTENT_CODE = "intent_code";
+    public final static int INTENT_CODE_KEY = 10;
     EditText addCommentView;
     int position;
 
@@ -35,6 +37,7 @@ public class AddCommentActivity extends Activity {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra(COMMENT_INTENT_KEY, addCommentView.getText().toString());
                 returnIntent.putExtra(POSITION_INTENT_KEY, position);
+                returnIntent.putExtra(INTENT_CODE, INTENT_CODE_KEY);
                 setResult(RESULT_OK, returnIntent);
                 finish();
             }

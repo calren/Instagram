@@ -116,7 +116,7 @@ public class HomeActivity extends Activity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data != null) {
+        if (data != null && data.getIntExtra(AddCommentActivity.INTENT_CODE, 0) != 0) {
             feedItemModels.get(data.getIntExtra(AddCommentActivity.POSITION_INTENT_KEY, -1))
                     .setComment2(data.getStringExtra(AddCommentActivity.COMMENT_INTENT_KEY));
             feedRecyclerViewAdapter.notifyDataSetChanged();
