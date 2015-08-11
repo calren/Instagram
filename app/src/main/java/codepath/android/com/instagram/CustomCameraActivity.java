@@ -26,7 +26,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         super.onCreate(savedInstanceState);
         setContentView(R.layout.custom_camera_activity);
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         getWindow().setFormat(PixelFormat.UNKNOWN);
         surfaceView = (SurfaceView) findViewById(R.id.camerapreview);
@@ -62,6 +62,7 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         camera = Camera.open();
+        camera.setDisplayOrientation(90);
     }
 
     @Override

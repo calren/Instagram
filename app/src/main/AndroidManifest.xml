@@ -26,10 +26,6 @@
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name=".CameraActivity"
-            android:label="@string/title_activity_camer" >
-        </activity>
-        <activity
             android:name=".CustomCameraActivity"
             android:label="Custom Camera" >
         </activity>

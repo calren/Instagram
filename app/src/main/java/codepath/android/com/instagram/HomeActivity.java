@@ -1,5 +1,6 @@
 package codepath.android.com.instagram;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import codepath.android.com.instagram.feed.AddCommentActivity;
 import codepath.android.com.instagram.feed.FeedItemModel;
 import codepath.android.com.instagram.feed.FeedRecyclerViewAdapter;
 import codepath.android.com.instagram.profile.UserImagesRecyclerViewAdapter;
+
+import com.commonsware.cwac.cam2.CameraActivity;
 
 public class HomeActivity extends Activity {
 
@@ -67,8 +70,17 @@ public class HomeActivity extends Activity {
     }
 
     private void launchCamera() {
-        Intent myIntent = new Intent(HomeActivity.this, CustomCameraActivity.class);
-        this.startActivity(myIntent);
+
+        Intent i =
+                new CameraActivity.IntentBuilder(HomeActivity.this).skipConfirm()
+                        .facing(CameraActivity.Facing.FRONT)
+                        .to(new File("", "portrait-front.jpg")).debug().updateMediaStore()
+                        .build();
+
+        startActivityForResult(i, 1);
+
+        // Intent myIntent = new Intent(HomeActivity.this, CustomCameraActivity.class);
+        // this.startActivity(myIntent);
         // Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         // startActivityForResult(intent, 0);
     }
