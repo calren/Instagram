@@ -67,8 +67,10 @@ public class HomeActivity extends Activity {
     }
 
     private void launchCamera() {
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        startActivityForResult(intent, 0);
+        Intent myIntent = new Intent(HomeActivity.this, CustomCameraActivity.class);
+        this.startActivity(myIntent);
+        // Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        // startActivityForResult(intent, 0);
     }
 
     private void setUpFeedActivity() {

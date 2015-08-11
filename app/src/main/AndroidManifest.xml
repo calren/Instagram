@@ -29,6 +29,10 @@
             android:name=".CameraActivity"
             android:label="@string/title_activity_camer" >
         </activity>
+        <activity
+            android:name=".CustomCameraActivity"
+            android:label="Custom Camera" >
+        </activity>
     </application>
 
 </manifest>
