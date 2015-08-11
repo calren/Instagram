@@ -1,8 +1,10 @@
 package codepath.android.com.instagram;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.bozho.easycamera.DefaultEasyCamera;
+import net.bozho.easycamera.EasyCamera;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +13,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ViewFlipper;
 
@@ -18,8 +22,6 @@ import codepath.android.com.instagram.feed.AddCommentActivity;
 import codepath.android.com.instagram.feed.FeedItemModel;
 import codepath.android.com.instagram.feed.FeedRecyclerViewAdapter;
 import codepath.android.com.instagram.profile.UserImagesRecyclerViewAdapter;
-
-import com.commonsware.cwac.cam2.CameraActivity;
 
 public class HomeActivity extends Activity {
 
@@ -71,16 +73,18 @@ public class HomeActivity extends Activity {
 
     private void launchCamera() {
 
-        Intent i =
-                new CameraActivity.IntentBuilder(HomeActivity.this).skipConfirm()
-                        .facing(CameraActivity.Facing.FRONT)
-                        .to(new File("", "portrait-front.jpg")).debug().updateMediaStore()
-                        .build();
 
-        startActivityForResult(i, 1);
+        // Intent i =
+        // new CameraActivity.IntentBuilder(HomeActivity.this).skipConfirm()
+        // .facing(CameraActivity.Facing.FRONT)
+        // .to(new File("", "portrait-front.jpg")).debug().updateMediaStore()
+        // .build();
+        //
+        // startActivityForResult(i, 1);
 
-        // Intent myIntent = new Intent(HomeActivity.this, CustomCameraActivity.class);
-        // this.startActivity(myIntent);
+         Intent myIntent = new Intent(HomeActivity.this, CustomCameraActivity.class);
+         this.startActivity(myIntent);
+
         // Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         // startActivityForResult(intent, 0);
     }
