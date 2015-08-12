@@ -54,7 +54,7 @@ public final class NetworkController {
         };
     }
 
-    public void fetchFeedPhotos(final HomeActivity activity) {
+    public void fetchFeedPhotosFromParse(final HomeActivity activity) {
         final ArrayList<FeedItemModel> feedItemModels = new ArrayList<>();
         ParseQuery<FeedItemModel> query = ParseQuery.getQuery(FeedItemModel.class);
         query.addDescendingOrder("createdAt");
