@@ -1,16 +1,22 @@
 package codepath.android.com.instagram;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import codepath.android.com.instagram.feed.FeedItemModel;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 
 public final class NetworkController {
     private AsyncHttpClient client = new AsyncHttpClient();;
@@ -46,6 +52,31 @@ public final class NetworkController {
                 }
             }
         };
+    }
+
+    public void fetchFeedPhotos(final HomeActivity activity) {
+        final ArrayList<FeedItemModel> feedItemModels = new ArrayList<>();
+
+        // Define the class we would like to query
+        ParseQuery<FeedItemModel> query = ParseQuery.getQuery(FeedItemModel.class);
+        // Define our query conditions
+        // Execute the find asynchronously
+        query.findInBackground(new FindCallback<FeedItemModel>() {
+            public void done(List<FeedItemModel> itemList, ParseException e) {
+                if (e == null) {
+                    for (FeedItemModel feedItem : itemList) {
+                        System.out.println("feed" + feedItem.getImageUrl());
+                        feedItemModels.add(new FeedItemModel(feedItem.getUserName(), feedItem
+                                .getProfileImageUrl(), feedItem.getImageUrl(), feedItem
+                                .getLikesCount(), feedItem.getComment1(), feedItem.getComment2()));
+
+                    }
+                    activity.updateFeed(feedItemModels);
+                } else {
+                    Log.d("item", "Error: " + e.getMessage());
+                }
+            }
+        });
     }
 
     public void fetchPopularPhotos(HomeActivity activity) {

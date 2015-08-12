@@ -1,13 +1,23 @@
 package codepath.android.com.instagram.feed;
 
-public class FeedItemModel {
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
 
-    private String userName;
-    private String comment1;
-    private String comment2;
-    private String imageUrl;
-    private String profileImageUrl;
-    private int likesCount;
+import org.json.JSONArray;
+
+@ParseClassName("FeedItem")
+public class FeedItemModel extends ParseObject{
+
+    public String userName;
+    public String comment1;
+    public String comment2;
+    public String imageUrl;
+    public String profileImageUrl;
+    public int likesCount;
+
+    public FeedItemModel() {
+
+    }
 
     public FeedItemModel(String userName, String profileImageUrl, String imageUrl, int likesCount, String comment1,
             String comment2) {
@@ -20,30 +30,26 @@ public class FeedItemModel {
     }
 
     public String getProfileImageUrl() {
-        return profileImageUrl;
+        return getString("profileImageUrl");
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return getString("imageUrl");
     }
 
     public String getUserName() {
-        return userName;
+        return getString("username");
     }
 
     public String getComment1() {
-        return comment1;
+        return getString("comment1");
     }
 
     public int getLikesCount() {
-        return likesCount;
+        return getInt("likesCount");
     }
 
     public String getComment2() {
-        return comment2;
-    }
-
-    public void setComment2(String comment) {
-        comment2 = comment;
+        return getString("comment2");
     }
 }

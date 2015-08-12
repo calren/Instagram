@@ -58,12 +58,12 @@ public class FeedRecyclerViewAdapter
     @Override
     public void onBindViewHolder(FeedRecyclerViewAdapter.ViewHolder holder, final int position) {
         FeedItemModel feedItemModel = feedItems.get(position);
-        holder.userName.setText(feedItemModel.getUserName());
-        Picasso.with(context).load(feedItemModel.getImageUrl()).into(holder.image);
-        Picasso.with(context).load(feedItemModel.getProfileImageUrl()).into(holder.profileImage);
-        holder.likesCount.setText(String.valueOf(feedItemModel.getLikesCount()) + " likes");
-        holder.comment1.setText(feedItemModel.getComment1());
-        holder.comment2.setText(feedItemModel.getComment2());
+        holder.userName.setText(feedItemModel.userName);
+        Picasso.with(context).load(feedItemModel.imageUrl).into(holder.image);
+        Picasso.with(context).load(feedItemModel.profileImageUrl).into(holder.profileImage);
+        holder.likesCount.setText(String.valueOf(feedItemModel.likesCount) + " likes");
+        holder.comment1.setText(feedItemModel.comment1);
+        holder.comment2.setText(feedItemModel.comment2);
         holder.addComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
