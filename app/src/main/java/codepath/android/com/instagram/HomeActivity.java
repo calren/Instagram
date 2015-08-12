@@ -3,28 +3,23 @@ package codepath.android.com.instagram;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.bozho.easycamera.DefaultEasyCamera;
-import net.bozho.easycamera.EasyCamera;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ViewFlipper;
-
-import com.parse.Parse;
-import com.parse.ParseObject;
 
 import codepath.android.com.instagram.feed.AddCommentActivity;
 import codepath.android.com.instagram.feed.FeedItemModel;
 import codepath.android.com.instagram.feed.FeedRecyclerViewAdapter;
 import codepath.android.com.instagram.profile.UserImagesRecyclerViewAdapter;
+
+import com.yalantis.cameramodule.activity.CameraActivity;
 
 public class HomeActivity extends Activity {
 
@@ -77,18 +72,17 @@ public class HomeActivity extends Activity {
 
     private void launchCamera() {
 
+        Intent intent = new Intent(this, CameraActivity.class);
+        intent.putExtra(CameraActivity.PATH, Environment.getExternalStorageDirectory().getPath());
+        intent.putExtra(CameraActivity.OPEN_PHOTO_PREVIEW, true);
+        intent.putExtra(CameraActivity.LAYOUT_ID, R.layout.custom_camera_activity);
+        startActivity(intent);
 
-        // Intent i =
-        // new CameraActivity.IntentBuilder(HomeActivity.this).skipConfirm()
-        // .facing(CameraActivity.Facing.FRONT)
-        // .to(new File("", "portrait-front.jpg")).debug().updateMediaStore()
-        // .build();
-        //
-        // startActivityForResult(i, 1);
+        // launch custom camera
+        // Intent myIntent = new Intent(HomeActivity.this, CustomCameraActivity.class);
+        // this.startActivity(myIntent);
 
-         Intent myIntent = new Intent(HomeActivity.this, CustomCameraActivity.class);
-         this.startActivity(myIntent);
-
+        // Launch default camera
         // Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         // startActivityForResult(intent, 0);
     }
@@ -139,9 +133,9 @@ public class HomeActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data != null && data.getIntExtra(AddCommentActivity.INTENT_CODE, 0) != 0) {
-//            feedItemModels.get(data.getIntExtra(AddCommentActivity.POSITION_INTENT_KEY, -1))
-//                    .setComment2(data.getStringExtra(AddCommentActivity.COMMENT_INTENT_KEY));
-//            feedRecyclerViewAdapter.notifyDataSetChanged();
+            // feedItemModels.get(data.getIntExtra(AddCommentActivity.POSITION_INTENT_KEY, -1))
+            // .setComment2(data.getStringExtra(AddCommentActivity.COMMENT_INTENT_KEY));
+            // feedRecyclerViewAdapter.notifyDataSetChanged();
         }
     }
 }

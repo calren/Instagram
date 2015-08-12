@@ -30,10 +30,10 @@ public class CustomCameraActivity extends Activity implements SurfaceHolder.Call
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         getWindow().setFormat(PixelFormat.UNKNOWN);
-        surfaceView = (SurfaceView) findViewById(R.id.camerapreview);
-        surfaceHolder = surfaceView.getHolder();
-        surfaceHolder.addCallback(this);
-        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+//        surfaceView = (SurfaceView) findViewById(R.id.camera_preview);
+//        surfaceHolder = surfaceView.getHolder();
+//        surfaceHolder.addCallback(this);
+//        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
         controlInflater = LayoutInflater.from(getBaseContext());
         View viewControl = controlInflater.inflate(R.layout.custom_camera, null);

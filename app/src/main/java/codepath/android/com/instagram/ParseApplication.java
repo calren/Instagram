@@ -6,6 +6,7 @@ import codepath.android.com.instagram.feed.FeedItemModel;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.yalantis.cameramodule.ManagerInitializer;
 
 
 public class ParseApplication extends Application {
@@ -13,6 +14,8 @@ public class ParseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ManagerInitializer.i.init(getApplicationContext());
+
         ParseObject.registerSubclass(FeedItemModel.class);
 
         Parse.enableLocalDatastore(this);
