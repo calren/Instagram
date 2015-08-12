@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.OrientationEventListener;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -384,6 +385,7 @@ public class CameraFragment extends com.yalantis.cameramodule.fragment.BaseFragm
     public void onDestroy() {
         super.onDestroy();
         if (camera != null) {
+            camera.stopPreview();
             camera.release();
             camera = null;
         }

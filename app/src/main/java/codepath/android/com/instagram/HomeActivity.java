@@ -1,17 +1,26 @@
 package codepath.android.com.instagram;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import codepath.android.com.instagram.feed.AddCommentActivity;
@@ -19,6 +28,10 @@ import codepath.android.com.instagram.feed.FeedItemModel;
 import codepath.android.com.instagram.feed.FeedRecyclerViewAdapter;
 import codepath.android.com.instagram.profile.UserImagesRecyclerViewAdapter;
 
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
 import com.yalantis.cameramodule.activity.CameraActivity;
 
 public class HomeActivity extends Activity {
@@ -35,6 +48,7 @@ public class HomeActivity extends Activity {
     RecyclerView feedRecyclerView;
     RecyclerView userImagesRecyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,19 +86,20 @@ public class HomeActivity extends Activity {
 
     private void launchCamera() {
 
-        Intent intent = new Intent(this, CameraActivity.class);
-        intent.putExtra(CameraActivity.PATH, Environment.getExternalStorageDirectory().getPath());
-        intent.putExtra(CameraActivity.OPEN_PHOTO_PREVIEW, true);
-        intent.putExtra(CameraActivity.LAYOUT_ID, R.layout.custom_camera_activity);
-        startActivity(intent);
+//        Intent intent = new Intent(this, CameraActivity.class);
+//        intent.putExtra(CameraActivity.PATH, Environment.getExternalStorageDirectory().getPath());
+//        intent.putExtra(CameraActivity.OPEN_PHOTO_PREVIEW, true);
+//        startActivity(intent);
 
         // launch custom camera
         // Intent myIntent = new Intent(HomeActivity.this, CustomCameraActivity.class);
         // this.startActivity(myIntent);
 
         // Launch default camera
-        // Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        // startActivityForResult(intent, 0);
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
     }
 
     private void setUpFeedActivity() {
@@ -136,6 +151,32 @@ public class HomeActivity extends Activity {
             // feedItemModels.get(data.getIntExtra(AddCommentActivity.POSITION_INTENT_KEY, -1))
             // .setComment2(data.getStringExtra(AddCommentActivity.COMMENT_INTENT_KEY));
             // feedRecyclerViewAdapter.notifyDataSetChanged();
+        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+
+            // Convert it to byte
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            // Compress image to lower quality scale 1 - 100
+            photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] image = stream.toByteArray();
+
+            // Create the ParseFile
+            final ParseFile file = new ParseFile("androidbegin.png", image);
+            // Upload the image into Parse Cloud
+            file.saveInBackground(new SaveCallback() {
+                public void done(ParseException e) {
+                    if (e == null) {
+                        System.out.println("file : " + file.getUrl());
+                        FeedItemModel newFeedItem = new FeedItemModel();
+                        newFeedItem.put("imageUrl", file.getUrl());
+                        newFeedItem.put("username", "calren");
+                        newFeedItem.put("likesCount", 1235);
+                        newFeedItem.put("profileImageUrl", file.getUrl());
+                        newFeedItem.saveInBackground();
+                    } else {
+                    }
+                }
+            });
         }
     }
 }
