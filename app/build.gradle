@@ -42,4 +42,6 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.8'
     compile 'com.commonsware.cwac:cam2:0.2.+'
     compile 'net.bozho.easycamera:easycamera:0.0.1:aar@aar'
+    compile 'com.parse.bolts:bolts-android:1.+'
+    compile fileTree(dir: 'libs', include: 'Parse-*.jar')
 }

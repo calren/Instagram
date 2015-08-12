@@ -18,6 +18,9 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ViewFlipper;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
 import codepath.android.com.instagram.feed.AddCommentActivity;
 import codepath.android.com.instagram.feed.FeedItemModel;
 import codepath.android.com.instagram.feed.FeedRecyclerViewAdapter;
@@ -42,6 +45,7 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         layoutViewFlipper = (ViewFlipper) findViewById(R.id.layout_view_flipper);
         setUpBottomTabBar();
         setUpFeedActivity();
