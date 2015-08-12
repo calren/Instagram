@@ -56,16 +56,12 @@ public final class NetworkController {
 
     public void fetchFeedPhotos(final HomeActivity activity) {
         final ArrayList<FeedItemModel> feedItemModels = new ArrayList<>();
-
-        // Define the class we would like to query
         ParseQuery<FeedItemModel> query = ParseQuery.getQuery(FeedItemModel.class);
-        // Define our query conditions
-        // Execute the find asynchronously
+        query.addDescendingOrder("createdAt");
         query.findInBackground(new FindCallback<FeedItemModel>() {
             public void done(List<FeedItemModel> itemList, ParseException e) {
                 if (e == null) {
                     for (FeedItemModel feedItem : itemList) {
-                        System.out.println("feed" + feedItem.getImageUrl());
                         feedItemModels.add(new FeedItemModel(feedItem.getUserName(), feedItem
                                 .getProfileImageUrl(), feedItem.getImageUrl(), feedItem
                                 .getLikesCount(), feedItem.getComment1(), feedItem.getComment2()));
